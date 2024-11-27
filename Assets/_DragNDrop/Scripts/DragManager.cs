@@ -50,6 +50,7 @@ namespace Com.KherusEmporium.DragNDrop {
 		}
 
 		private void StartDrag() {
+
 			if (Physics.Raycast(cam.ScreenPointToRay(MousePosition), out RaycastHit hit)) {
 				Debug.DrawLine(cam.transform.position, hit.point, Color.red, 5);
 
@@ -71,18 +72,21 @@ namespace Com.KherusEmporium.DragNDrop {
 		}
 
 		private void StopDrag() {
+			Container container = null;
 
 			if (Physics.Raycast(cam.ScreenPointToRay(MousePosition), out RaycastHit hit)) {
 				Debug.DrawLine(cam.transform.position, hit.point, Color.blue, 5);
 
-				Container container = hit.collider.gameObject.GetComponentInChildren<Container>();
+				container = hit.collider.gameObject.GetComponentInChildren<Container>();
 
 				if (container != null) {
-					container.Add(drag);
+					Draggable removedDraggable = container.Add(drag);
+					
+					removedDraggable?.ReturnToStartPos();
 				}
 			}
 
-			drag.Drop();
+			drag.Drop(container!=null);
 			drag = null;
 		}
 

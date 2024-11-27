@@ -10,6 +10,8 @@ namespace Com.KherusEmporium.DragNDrop {
         /// </summary>
         [SerializeField] protected bool isOpen = true;
 
+        public abstract bool IsEmpty();
+
         /// <summary>
         /// Adds a Draggable to a container.
         /// </summary>
