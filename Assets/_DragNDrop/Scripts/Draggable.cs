@@ -14,11 +14,13 @@ namespace Com.KherusEmporium.DragNDrop {
 
 		public Container previousContainer = null;
 		private int defaultLayer;
+		private Transform defaultParent;
 		private Vector3 defaultPos;
 
 		private void Start() {
 			defaultLayer = gameObject.layer;
-			defaultPos = transform.position;
+			defaultPos = transform.localPosition;
+			defaultParent= transform.parent;
 		}
 
 		public void ReturnToPreviousContainer() {
@@ -30,7 +32,7 @@ namespace Com.KherusEmporium.DragNDrop {
 		}
 
 		public void ReturnToStartPos() {
-			transform.SetParent(null);
+			transform.SetParent(defaultParent);
 			transform.localPosition = defaultPos;
 		}
 
