@@ -54,8 +54,20 @@ namespace Com.KherusEmporium.DragNDrop {
 				Debug.DrawLine(cam.transform.position, hit.point, Color.red, 5);
 
 				drag = hit.collider.gameObject.GetComponent<Draggable>();
-				drag?.Grab();
+				if (CheckIfDragging()) return;
+
+				Container container = hit.collider.GetComponentInChildren<Container>();
+				drag = container?.Remove();
+				CheckIfDragging();
 			}
+		}
+
+		private bool CheckIfDragging() {
+			if (drag != null) {
+				drag?.Grab();
+				return true;
+			}
+			return false;
 		}
 
 		private void StopDrag() {

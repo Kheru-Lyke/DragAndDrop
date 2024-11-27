@@ -24,8 +24,7 @@ namespace Com.KherusEmporium.DragNDrop {
 
 		public void ReturnToPreviousContainer() {
             if (previousContainer != null) {
-                transform.SetParent(previousContainer.transform);
-                transform.localPosition = Vector3.zero;
+                previousContainer.Add(this);
             }
             else {
                 transform.localPosition = defaultPos;
