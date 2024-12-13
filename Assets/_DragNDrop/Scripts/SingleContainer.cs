@@ -2,10 +2,10 @@ using Com.KherusEmporium.DragNDrop;
 using UnityEngine;
 
 namespace Com.KherusEmporium.DragNDrop {
-    public class SingleContain : Container
+    public class SingleContainer : Container
     {
 		[SerializeField] private bool canReplace = true;
-		private Draggable contained = null;
+		[SerializeField] private Draggable contained = null;
 
 		public override Draggable Add(Draggable draggable) {
 			if (draggable == contained) return null;
@@ -31,6 +31,8 @@ namespace Com.KherusEmporium.DragNDrop {
 		}
 
 		public override Draggable Remove() {
+			if (contained == null) return null;
+
 			Draggable toReturn = contained;
 			contained.previousContainer = this;
 

@@ -10,6 +10,7 @@ namespace Com.KherusEmporium.DragNDrop {
 	public class DragManager : MonoBehaviour {
 		[SerializeField] private MouseButton dragOn = MouseButton.Left;
 		[SerializeField] private Camera cam = null;
+		[SerializeField] private bool canDropAnywhere = false;
 
 		[Space]
 		[SerializeField] private float distanceFromCam = 5;
@@ -86,7 +87,7 @@ namespace Com.KherusEmporium.DragNDrop {
 				}
 			}
 
-			drag.Drop(container!=null);
+			drag.Drop(canDropAnywhere, container!=null);
 			drag = null;
 		}
 

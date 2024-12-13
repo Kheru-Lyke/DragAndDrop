@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,10 +8,11 @@ namespace Com.KherusEmporium.DragNDrop {
 	/// <summary>
 	/// Class for the objects dragged and contained
 	/// </summary>
+	[Serializable]
 	public class Draggable : MonoBehaviour {
 		[SerializeField] private bool canDropAnywhere = false;
 
-		public bool CanDropAnywher => canDropAnywhere;
+		public bool CanDropAnywhere => canDropAnywhere;
 
 		public Container previousContainer = null;
 		private int defaultLayer;
@@ -34,16 +36,20 @@ namespace Com.KherusEmporium.DragNDrop {
 		public void ReturnToStartPos() {
 			transform.SetParent(defaultParent);
 			transform.localPosition = defaultPos;
+			gameObject.layer = defaultLayer;
 		}
 
 		public void Grab() {
 			gameObject.layer = 2;
 		}
 
-		public void Drop(bool hasContainer) {
-			gameObject.layer = defaultLayer;
+		public void Drop(bool canDropAnywhere, bool inContainer) {
+			if (!inContainer) {
+				gameObject.layer = defaultLayer;
+				previousContainer = null;
+			}
 
-			if (!canDropAnywhere && !hasContainer) ReturnToPreviousContainer();
+			if (!canDropAnywhere && !inContainer) ReturnToPreviousContainer();
 		}
 	}
 }
