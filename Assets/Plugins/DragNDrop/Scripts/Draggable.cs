@@ -42,7 +42,7 @@ namespace Com.KherusEmporium.DragNDrop {
 
 		public void Drop(bool canDropAnywhere, bool inContainer) {
 			if (!canDropAnywhere && !inContainer) ReturnToPreviousContainer();
-			else {
+			else if (canDropAnywhere) { 
 				gameObject.layer = defaultLayer;
 				previousContainer = null;
 			}
